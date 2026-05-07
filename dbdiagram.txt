@@ -1,0 +1,88 @@
+Table stores {
+  id bigint [pk, increment]
+  name varchar
+  phone varchar
+  address varchar
+  created_at datetime
+}
+
+Table accounts {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id]
+
+  username varchar
+  password varchar
+  role varchar
+
+  created_at datetime
+}
+
+Table employees {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id]
+
+  full_name varchar
+  phone varchar
+  address varchar
+
+  salary_per_hour decimal
+
+  created_at datetime
+}
+
+Table attendances {
+  id bigint [pk, increment]
+  employee_id bigint [ref: > employees.id]
+
+  check_in datetime
+  check_out datetime
+
+  total_hours decimal
+
+  created_at datetime
+}
+
+Table categories {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id]
+
+  name varchar
+
+  created_at datetime
+}
+
+Table products {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id]
+  category_id bigint [ref: > categories.id]
+
+  name varchar
+
+  quantity int
+
+  import_price decimal
+  sell_price decimal
+
+  created_at datetime
+}
+
+Table invoices {
+  id bigint [pk, increment]
+  store_id bigint [ref: > stores.id]
+  employee_id bigint [ref: > employees.id]
+
+  total_amount decimal
+
+  created_at datetime
+}
+
+Table invoice_items {
+  id bigint [pk, increment]
+
+  invoice_id bigint [ref: > invoices.id]
+  product_id bigint [ref: > products.id]
+
+  quantity int
+  price decimal
+  subtotal decimal
+}
