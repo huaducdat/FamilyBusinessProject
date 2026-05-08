@@ -5,8 +5,10 @@ import com.huaducdat.storemanager.model.entity.User;
 import com.huaducdat.storemanager.model.enumtype.Role;
 import com.huaducdat.storemanager.model.request.ChangePasswordRequest;
 import com.huaducdat.storemanager.model.request.CreateUserRequest;
+import com.huaducdat.storemanager.model.request.UpdateUserRequest;
 import com.huaducdat.storemanager.model.response.UserResponse;
 import com.huaducdat.storemanager.repository.UserRepository;
+import com.huaducdat.storemanager.service.util.PermissionUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,22 +33,22 @@ public class UserService {
         this.encoder = encoder;
     }
 
+    // =========================
+    // CREATE USER
+    // =========================
+
     public User create(
             User currentUser,
             CreateUserRequest request
     ) {
 
         // =========================
-        // ONLY ADMIN
+        // PERMISSION
         // =========================
 
-        if (currentUser.getRole()
-                != Role.ADMIN) {
-
-            throw new RuntimeException(
-                    "Permission denied"
-            );
-        }
+        PermissionUtil.requireManager(
+                currentUser
+        );
 
         // =========================
         // EXIST USERNAME
@@ -63,6 +65,20 @@ public class UserService {
 
             throw new RuntimeException(
                     "Username already exists"
+            );
+        }
+
+        // =========================
+        // MANAGER LIMIT
+        // =========================
+
+        if (currentUser.getRole()
+                == Role.MANAGER
+                && request.getRole()
+                != Role.EMPLOYEE) {
+
+            throw new RuntimeException(
+                    "Manager can only create employee"
             );
         }
 
@@ -108,25 +124,46 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // =========================
+    // LIST USER
+    // =========================
+
     public List<UserResponse> list(
             User currentUser
     ) {
 
         // =========================
-        // ONLY ADMIN
+        // PERMISSION
         // =========================
 
-        if (currentUser.getRole()
-                != Role.ADMIN) {
-
-            throw new RuntimeException(
-                    "Permission denied"
-            );
-        }
+        PermissionUtil.requireManager(
+                currentUser
+        );
 
         return userRepository
                 .findAll()
                 .stream()
+
+                // =========================
+                // FILTER BY ROLE
+                // =========================
+
+                .filter(user -> {
+
+                    if (currentUser.getRole()
+                            == Role.ADMIN) {
+
+                        return true;
+                    }
+
+                    return user.getRole()
+                            == Role.EMPLOYEE;
+                })
+
+                // =========================
+                // MAP RESPONSE
+                // =========================
+
                 .map(user ->
                         UserResponse.builder()
                                 .id(user.getId())
@@ -150,6 +187,10 @@ public class UserService {
                 .toList();
     }
 
+    // =========================
+    // TOGGLE ACTIVE
+    // =========================
+
     public void toggleActive(
             User currentUser,
             Long userId,
@@ -157,16 +198,12 @@ public class UserService {
     ) {
 
         // =========================
-        // ONLY ADMIN
+        // PERMISSION
         // =========================
 
-        if (currentUser.getRole()
-                != Role.ADMIN) {
-
-            throw new RuntimeException(
-                    "Permission denied"
-            );
-        }
+        PermissionUtil.requireManager(
+                currentUser
+        );
 
         // =========================
         // FIND USER
@@ -180,6 +217,15 @@ public class UserService {
                                         "User not found"
                                 )
                         );
+
+        // =========================
+        // HIERARCHY
+        // =========================
+
+        PermissionUtil.requireHigher(
+                currentUser,
+                user
+        );
 
         // =========================
         // CANNOT DISABLE SELF
@@ -202,6 +248,10 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    // =========================
+    // CHANGE PASSWORD
+    // =========================
 
     public void changePassword(
             User currentUser,
@@ -236,5 +286,82 @@ public class UserService {
         );
 
         userRepository.save(currentUser);
+    }
+
+    // =========================
+    // UPDATE USER
+    // =========================
+
+    public void update(
+            User currentUser,
+            Long userId,
+            UpdateUserRequest request
+    ) {
+
+        // =========================
+        // PERMISSION
+        // =========================
+
+        PermissionUtil.requireManager(
+                currentUser
+        );
+
+        // =========================
+        // FIND USER
+        // =========================
+
+        User user =
+                userRepository
+                        .findById(userId)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found"
+                                )
+                        );
+
+        // =========================
+        // HIERARCHY
+        // =========================
+
+        PermissionUtil.requireHigher(
+                currentUser,
+                user
+        );
+
+        // =========================
+        // MANAGER LIMIT
+        // =========================
+
+        if (currentUser.getRole()
+                == Role.MANAGER
+                && request.getRole()
+                != Role.EMPLOYEE) {
+
+            throw new RuntimeException(
+                    "Manager can only assign EMPLOYEE"
+            );
+        }
+
+        // =========================
+        // UPDATE
+        // =========================
+
+        user.setFullName(
+                request.getFullName()
+        );
+
+        user.setPhone(
+                request.getPhone()
+        );
+
+        user.setRole(
+                request.getRole()
+        );
+
+        user.setActive(
+                request.getActive()
+        );
+
+        userRepository.save(user);
     }
 }
