@@ -82,4 +82,29 @@ public class PermissionUtil {
             );
         }
     }
+
+    public static void requireEmployee(
+            User user
+    ) {
+
+        if (user == null) {
+
+            throw new RuntimeException(
+                    "Unauthorized"
+            );
+        }
+
+        if (
+                user.getRole() != Role.ADMIN
+                        &&
+                        user.getRole() != Role.MANAGER
+                        &&
+                        user.getRole() != Role.EMPLOYEE
+        ) {
+
+            throw new RuntimeException(
+                    "Permission denied"
+            );
+        }
+    }
 }

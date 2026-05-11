@@ -24,4 +24,7 @@ public interface AttendanceRepository
             LocalDate start,
             LocalDate end
     );
+    List<Attendance> findByWorkDate(
+            LocalDate date
+    );
 }
