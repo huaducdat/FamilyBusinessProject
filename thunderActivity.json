@@ -1,0 +1,725 @@
+[
+    {
+        "_id": "20e7ad47-13c5-46f3-b84b-893afaf20149",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/auth/login",
+        "url": "http://localhost:8080/api/auth/me",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-07T17:01:34.668Z",
+        "modified": "2026-05-08T06:13:27.216Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 9b7209c3-ee7c-495f-8911-0cbe158317b3"
+            }
+        ],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"username\": \"admin\",",
+                "  \"password\": \"123456\"",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "01bc7f56-e9ba-47a2-aa61-36525bbe22de",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/auth/logout",
+        "url": "http://localhost:8080/api/auth/logout",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T06:18:07.375Z",
+        "modified": "2026-05-08T06:29:49.995Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer b9f9df7e-aeaa-41f1-9970-92ea5770e45a"
+            }
+        ]
+    },
+    {
+        "_id": "57aa4591-e425-45ab-8a07-5c185855a89c",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/auth/login",
+        "url": "http://localhost:8080/api/auth/login",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T06:23:00.528Z",
+        "modified": "2026-05-08T17:06:49.986Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"username\": \"admin\",",
+                "  \"password\": \"999999\"",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "3d669079-5ea0-449a-902a-b168cee85d6d",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/auth/login Copy",
+        "url": "http://localhost:8080/api/auth/login",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T06:23:00.528Z",
+        "modified": "2026-05-08T17:31:53.641Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"username\": \"employee1\",",
+                "  \"password\": \"123456\"",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "cd27dc85-076a-4440-8381-061e1fd53d32",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/users",
+        "url": "http://localhost:8080/api/users",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T06:35:53.266Z",
+        "modified": "2026-05-08T06:37:19.439Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 0ba20610-ffe6-4d59-a889-93a277c882b4"
+            }
+        ],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"username\": \"employee1\",",
+                "  \"password\": \"123456\",",
+                "  \"fullName\": \"Employee 1\",",
+                "  \"phone\": \"0999999999\",",
+                "  \"role\": \"EMPLOYEE\"",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "5046bb9e-dff2-413f-bb7b-34b907810ada",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/users",
+        "url": "http://localhost:8080/api/users",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-08T06:41:23.874Z",
+        "modified": "2026-05-08T06:46:17.859Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 0ba20610-ffe6-4d59-a889-93a277c882b4"
+            }
+        ]
+    },
+    {
+        "_id": "ae9f993f-b65e-4423-b0a1-579106d33f83",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/users/2/active",
+        "url": "http://localhost:8080/api/users/2/active",
+        "method": "PATCH",
+        "sortNum": 0,
+        "created": "2026-05-08T06:44:54.270Z",
+        "modified": "2026-05-08T06:46:12.246Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 0ba20610-ffe6-4d59-a889-93a277c882b4"
+            }
+        ],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"active\": false",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "0ba20610-ffe6-4d59-a889-93a277c882b4"
+        }
+    },
+    {
+        "_id": "7259bfc5-8e18-406e-ab85-ddcd3b1fb6cc",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/users/password",
+        "url": "http://localhost:8080/api/users/password",
+        "method": "PATCH",
+        "sortNum": 0,
+        "created": "2026-05-08T07:00:19.449Z",
+        "modified": "2026-05-08T07:02:37.968Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 0ba20610-ffe6-4d59-a889-93a277c882b4"
+            }
+        ],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"oldPassword\": \"123456\",",
+                "  \"newPassword\": \"999999\"",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "af568105-09f9-4bd8-854b-2e8c99dab6c0",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/users/2",
+        "url": "http://localhost:8080/api/users/2",
+        "method": "PATCH",
+        "sortNum": 0,
+        "created": "2026-05-08T17:07:41.048Z",
+        "modified": "2026-05-08T17:08:12.472Z",
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer 91b0fa82-38fd-4b31-8934-a1e90e7b9f24"
+            }
+        ],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"fullName\": \"Employee Updated\",",
+                "  \"phone\": \"0888888888\",",
+                "  \"role\": \"MANAGER\",",
+                "  \"active\": true",
+                "}"
+            ],
+            "form": []
+        }
+    },
+    {
+        "_id": "a8c1492b-c25f-40e0-85b1-76744d6745ff",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/attendance/check-in",
+        "url": "http://localhost:8080/api/attendance/check-in",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T17:32:21.366Z",
+        "modified": "2026-05-08T17:32:21.366Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "b3e6af8b-8253-45af-a5e5-831defd68c6a",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/attendance/check-out",
+        "url": "http://localhost:8080/api/attendance/check-out",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-08T17:33:19.305Z",
+        "modified": "2026-05-08T17:33:19.305Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "ed3cdb51-08b3-4d26-9e87-94a474c6fd8e",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/attendance/my",
+        "url": "http://localhost:8080/api/attendance/my",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-08T17:38:37.665Z",
+        "modified": "2026-05-08T17:39:10.114Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "21da4815-caa6-4ce3-9e79-4407be718132",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/attendance/monthly-summary",
+        "url": "http://localhost:8080/api/attendance/monthly-summary",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-08T18:02:06.581Z",
+        "modified": "2026-05-08T18:02:06.581Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "cabf8cae-6898-43f9-91c4-dbc98e95be2c",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/categories",
+        "url": "http://localhost:8080/api/categories",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-10T15:13:31.012Z",
+        "modified": "2026-05-10T15:13:31.012Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"name\": \"Beverage\",",
+                "  \"description\": \"Drink products\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "2e3075ce-c15d-443f-9e65-cd70868ff869",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/categories",
+        "url": "http://localhost:8080/api/categories",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-10T15:14:17.613Z",
+        "modified": "2026-05-10T15:14:17.613Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "bb3cfabb-2f86-4405-89b7-1977b1c1f214",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/products",
+        "url": "http://localhost:8080/api/products",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-10T15:44:00.114Z",
+        "modified": "2026-05-10T15:48:35.854Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"categoryId\": 1,",
+                "  \"name\": \"Coca Cola\",",
+                "  \"barcode\": \"8938505974192\",",
+                "  \"description\": \"Soft drink\",",
+                "  \"importPrice\": 8000,",
+                "  \"sellPrice\": 12000,",
+                "  \"stockQuantity\": 50",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "452b0062-e548-45c9-920c-d377ed8c3cfd",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/products",
+        "url": "http://localhost:8080/api/products",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-10T15:49:08.793Z",
+        "modified": "2026-05-11T19:26:23.275Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "54b76e26-50be-4d32-8930-f0dc005e778c",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/products/1/import",
+        "url": "http://localhost:8080/api/products/1/import",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-10T16:28:30.338Z",
+        "modified": "2026-05-10T16:28:30.338Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"quantity\": 20,",
+                "  \"note\": \"Import from supplier\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "5db40274-edca-4b8a-b79a-9e7f01f3e266",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/products/1/export",
+        "url": "http://localhost:8080/api/products/1/export",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-10T16:29:44.403Z",
+        "modified": "2026-05-10T16:29:44.403Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"quantity\": 10,",
+                "  \"note\": \"Sold\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "8e4cf9f4-f2ef-4ff1-ac5a-60c7b4847538",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/products/1/inventory-history",
+        "url": "http://localhost:8080/api/products/1/inventory-history",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-10T16:35:54.854Z",
+        "modified": "2026-05-10T16:36:05.003Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "e42edb80-7a1a-432e-8475-00ec125777e6",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/sales/checkout",
+        "url": "http://localhost:8080/api/sales/checkout",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-11T18:10:47.491Z",
+        "modified": "2026-05-11T20:16:20.155Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"customerId\": 1,",
+                "  \"productId\": 1,",
+                "  \"quantity\": 2,",
+                "  \"payLater\": true",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "a3c5ab7c-0d07-4fb7-b354-b0eff80545de",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/sales/history",
+        "url": "http://localhost:8080/api/sales/history",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:20:35.647Z",
+        "modified": "2026-05-11T20:18:25.395Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "9e1d89de-69f0-45d4-a601-3ba70703d116",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/sales/1",
+        "url": "http://localhost:8080/api/sales/1",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:21:14.627Z",
+        "modified": "2026-05-11T18:21:14.627Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "51f22bfe-d564-4a0d-b22f-6e78fa310a9c",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/dashboard",
+        "url": "http://localhost:8080/api/dashboard",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:36:08.759Z",
+        "modified": "2026-05-11T18:36:08.759Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "3e8d51e4-52e2-4056-a7d8-0048df1fc4df",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/reports/monthly-revenue",
+        "url": "http://localhost:8080/api/reports/monthly-revenue",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:42:41.114Z",
+        "modified": "2026-05-11T18:42:41.114Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "47906028-f525-41fc-94cc-b7d172070c2d",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/reports/best-seller",
+        "url": "http://localhost:8080/api/reports/best-seller",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:49:45.088Z",
+        "modified": "2026-05-11T18:49:45.088Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "bf72e001-6044-4a29-97b6-81c12c8993b6",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/reports/profit",
+        "url": "http://localhost:8080/api/reports/profit",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T18:53:46.819Z",
+        "modified": "2026-05-11T18:53:46.819Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "2a1fe3b3-8b37-4652-bd8e-906bf9127c54",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/purchases",
+        "url": "http://localhost:8080/api/suppliers",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-11T19:20:01.096Z",
+        "modified": "2026-05-11T19:23:47.400Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"name\": \"Coca Supplier\",",
+                "  \"phone\": \"0123456789\",",
+                "  \"address\": \"Ha Noi\",",
+                "  \"email\": \"supplier@gmail.com\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "7d9ce6cf-74ff-4ec8-a6c2-f15294a4f5f9",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/suppliers",
+        "url": "http://localhost:8080/api/suppliers",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T19:24:25.571Z",
+        "modified": "2026-05-11T19:24:25.571Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "a76ddfa2-a05b-44ba-a517-b9ba9759ae17",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/purchases",
+        "url": "http://localhost:8080/api/purchases",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-11T19:26:01.847Z",
+        "modified": "2026-05-11T19:26:01.847Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"supplierId\": 1,",
+                "  \"productId\": 1,",
+                "  \"quantity\": 30",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "67ac4b63-74c8-4978-9c21-2b013560e71f",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/customers",
+        "url": "http://localhost:8080/api/customers",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-11T19:42:19.311Z",
+        "modified": "2026-05-11T19:42:19.311Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"fullName\": \"Nguyen Van A\",",
+                "  \"phone\": \"0988888888\",",
+                "  \"address\": \"Ha Noi\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "136dcb38-8957-4205-8f03-30aa8f8a2acf",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/customers/pay-debt",
+        "url": "http://localhost:8080/api/customers/pay-debt",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2026-05-11T19:54:53.148Z",
+        "modified": "2026-05-11T20:19:00.962Z",
+        "headers": [],
+        "body": {
+            "type": "json",
+            "raw": [
+                "{",
+                "  \"customerId\": 1,",
+                "  \"amount\": 10000,",
+                "  \"note\": \"Customer paid\"",
+                "}"
+            ],
+            "form": []
+        },
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "9f5eb68f-6809-40d6-a767-2cdc8f669dc8",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/customers",
+        "url": "http://localhost:8080/api/customers",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T20:16:53.675Z",
+        "modified": "2026-05-11T20:17:31.741Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    },
+    {
+        "_id": "fa448bc2-49f0-4f47-82f0-8a3b7632ef9f",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8080/api/customers/1/history",
+        "url": "http://localhost:8080/api/customers/1/history",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2026-05-11T20:23:44.950Z",
+        "modified": "2026-05-11T20:23:44.950Z",
+        "headers": [],
+        "auth": {
+            "type": "bearer",
+            "bearer": "9730fcd4-34a4-4d95-a3e7-d20e606246c3"
+        }
+    }
+]
