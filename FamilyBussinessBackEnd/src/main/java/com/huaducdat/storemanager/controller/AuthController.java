@@ -1,6 +1,7 @@
 package com.huaducdat.storemanager.controller;
 
 import com.huaducdat.storemanager.model.entity.User;
+import com.huaducdat.storemanager.model.request.CreateOwnerRequest;
 import com.huaducdat.storemanager.model.request.LoginRequest;
 import com.huaducdat.storemanager.model.response.BaseResponse;
 import com.huaducdat.storemanager.model.response.LoginResponse;
@@ -73,6 +74,22 @@ public class AuthController {
         return BaseResponse.builder()
                 .success(true)
                 .message("Logout success")
+                .data(null)
+                .build();
+    }
+
+    @PostMapping("/bootstrap-owner")
+    public BaseResponse<?> bootstrapOwner(
+            @RequestBody CreateOwnerRequest body
+    ) {
+
+        authService.createOwner(
+                body
+        );
+
+        return BaseResponse.builder()
+                .success(true)
+                .message("Owner created")
                 .data(null)
                 .build();
     }

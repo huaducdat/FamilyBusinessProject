@@ -1,6 +1,7 @@
 info:
   name: createUser
   type: http
+  seq: 1
 
 http:
   method: POST
@@ -9,12 +10,14 @@ http:
     type: json
     data: |-
       {
-        "username": "employee2",
+        "username": "employee3",
         "password": "123456",
-        "fullName": "Employee Two",
+        "fullName": "Employee Three",
         "role": "EMPLOYEE"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: fc9cb65d-1852-4fe4-a760-1f8f063718db
 
 settings:
   encodeUrl: true

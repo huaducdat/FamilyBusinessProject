@@ -2,10 +2,12 @@ package com.huaducdat.storemanager.service.cash;
 
 import com.huaducdat.storemanager.model.entity.CashTransaction;
 import com.huaducdat.storemanager.model.entity.User;
+import com.huaducdat.storemanager.model.enumtype.AuditAction;
 import com.huaducdat.storemanager.model.enumtype.CashTransactionType;
 import com.huaducdat.storemanager.model.request.CashRequest;
 import com.huaducdat.storemanager.model.response.DailyCashReportResponse;
 import com.huaducdat.storemanager.repository.CashTransactionRepository;
+import com.huaducdat.storemanager.service.audit.AuditService;
 import com.huaducdat.storemanager.service.util.PermissionUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,15 @@ public class CashFlowService {
 
     private final CashTransactionRepository repository;
 
+    private final AuditService auditService;
+
     public CashFlowService(
-            CashTransactionRepository repository
+            CashTransactionRepository repository, AuditService auditService
     ) {
 
         this.repository =
                 repository;
+        this.auditService = auditService;
     }
 
     // =========================
@@ -65,6 +70,13 @@ public class CashFlowService {
         );
 
         repository.save(tx);
+
+        auditService.log(
+                currentUser,
+                AuditAction.CASH_INCOME,
+                "Cash income: "
+                        + request.getAmount()
+        );
     }
 
     // =========================
@@ -104,6 +116,13 @@ public class CashFlowService {
         );
 
         repository.save(tx);
+
+        auditService.log(
+                currentUser,
+                AuditAction.CASH_EXPENSE,
+                "Cash expense: "
+                        + request.getAmount()
+        );
     }
 
     // =========================

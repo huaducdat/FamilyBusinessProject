@@ -1,6 +1,6 @@
 package com.huaducdat.storemanager.model.request;
 
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ public class UpdateUserRequest {
 
     private String phone;
 
-    private Role role;
+    private UserRole userRole;
 
     private Boolean active;
 }

@@ -1,10 +1,12 @@
 package com.huaducdat.storemanager.service.purchase;
 
 import com.huaducdat.storemanager.model.entity.*;
+import com.huaducdat.storemanager.model.enumtype.AuditAction;
 import com.huaducdat.storemanager.model.enumtype.InventoryType;
 import com.huaducdat.storemanager.model.request.CreatePurchaseRequest;
 import com.huaducdat.storemanager.model.response.PurchaseResponse;
 import com.huaducdat.storemanager.repository.*;
+import com.huaducdat.storemanager.service.audit.AuditService;
 import com.huaducdat.storemanager.service.util.PermissionUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,14 @@ public class PurchaseService {
 
     private final InventoryTransactionRepository inventoryRepository;
 
+    private final AuditService auditService;
+
     public PurchaseService(
             SupplierRepository supplierRepository,
             ProductRepository productRepository,
             PurchaseOrderRepository purchaseRepository,
             PurchaseOrderItemRepository itemRepository,
-            InventoryTransactionRepository inventoryRepository
+            InventoryTransactionRepository inventoryRepository, AuditService auditService
     ) {
 
         this.supplierRepository =
@@ -45,6 +49,7 @@ public class PurchaseService {
 
         this.inventoryRepository =
                 inventoryRepository;
+        this.auditService = auditService;
     }
 
     // =========================
@@ -184,6 +189,13 @@ public class PurchaseService {
         );
 
         inventoryRepository.save(tx);
+
+        auditService.log(
+                currentUser,
+                AuditAction.PURCHASE,
+                "Purchase order #"
+                        + order.getId()
+        );
 
         return PurchaseResponse.builder()
                 .purchaseOrderId(

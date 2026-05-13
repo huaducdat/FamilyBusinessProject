@@ -16,4 +16,7 @@ public interface InvoiceRepository
     List<Invoice> findByCustomerIdOrderByCreatedAtDesc(
             Long customerId
     );
+    List<Invoice> findByStoreIdOrderByCreatedAtDesc(
+            Long storeId
+    );
 }

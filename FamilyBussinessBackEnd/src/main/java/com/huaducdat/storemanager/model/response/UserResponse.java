@@ -1,6 +1,6 @@
 package com.huaducdat.storemanager.model.response;
 
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,7 +16,11 @@ public class UserResponse {
 
     private String phone;
 
-    private Role role;
+    private UserRole userRole;
 
     private Boolean active;
+
+    private Long storeId;
+
+    private String storeName;
 }

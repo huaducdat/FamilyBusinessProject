@@ -58,13 +58,20 @@ public class ProductController {
     // =========================
 
     @GetMapping
-    public BaseResponse<?> list() {
-
+    public BaseResponse<?> list(
+            HttpServletRequest request
+    ){
+        User currentUser =
+                CurrentUserUtil.get(
+                        request
+                );
         return BaseResponse.builder()
                 .success(true)
                 .message("Product list")
                 .data(
-                        productService.list()
+                        productService.list(
+                                currentUser
+                        )
                 )
                 .build();
     }

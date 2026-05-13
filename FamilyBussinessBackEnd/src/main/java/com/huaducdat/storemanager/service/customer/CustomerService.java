@@ -1,6 +1,7 @@
 package com.huaducdat.storemanager.service.customer;
 
 import com.huaducdat.storemanager.model.entity.*;
+import com.huaducdat.storemanager.model.enumtype.AuditAction;
 import com.huaducdat.storemanager.model.request.CreateCustomerRequest;
 import com.huaducdat.storemanager.model.request.DebtPaymentRequest;
 import com.huaducdat.storemanager.model.response.CustomerHistoryResponse;
@@ -10,6 +11,7 @@ import com.huaducdat.storemanager.model.response.InvoiceResponse;
 import com.huaducdat.storemanager.repository.CustomerRepository;
 import com.huaducdat.storemanager.repository.DebtPaymentRepository;
 import com.huaducdat.storemanager.repository.InvoiceRepository;
+import com.huaducdat.storemanager.service.audit.AuditService;
 import com.huaducdat.storemanager.service.util.PermissionUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -26,14 +28,17 @@ public class CustomerService {
 
     private final InvoiceRepository invoiceRepository;
 
+    private final AuditService auditService;
+
     public CustomerService(
-            CustomerRepository customerRepository, DebtPaymentRepository debtRepository, InvoiceRepository invoiceRepository
+            CustomerRepository customerRepository, DebtPaymentRepository debtRepository, InvoiceRepository invoiceRepository, AuditService auditService
     ) {
 
         this.customerRepository =
                 customerRepository;
         this.debtRepository = debtRepository;
         this.invoiceRepository = invoiceRepository;
+        this.auditService = auditService;
     }
 
     // =========================
@@ -80,10 +85,15 @@ public class CustomerService {
     // LIST
     // =========================
 
-    public List<CustomerResponse> list() {
+    public List<CustomerResponse> list(
+            User currentUser
+    ) {
 
-        return customerRepository
-                .findAll()
+        return customerRepository.findByStoreId(
+                        currentUser
+                                .getStore()
+                                .getId()
+                )
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -179,6 +189,13 @@ public class CustomerService {
         );
 
         debtRepository.save(payment);
+
+        auditService.log(
+                currentUser,
+                AuditAction.PAY_DEBT,
+                "Customer debt payment: "
+                        + customer.getFullName()
+        );
 
         return DebtPaymentResponse
                 .builder()

@@ -1,7 +1,7 @@
 package com.huaducdat.storemanager.service.util;
 
 import com.huaducdat.storemanager.model.entity.User;
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 
 public class PermissionUtil {
 
@@ -13,8 +13,8 @@ public class PermissionUtil {
             User user
     ) {
 
-        if (user.getRole()
-                != Role.ADMIN) {
+        if (user.getUserRole()
+                != UserRole.ADMIN) {
 
             throw new RuntimeException(
                     "Permission denied"
@@ -30,7 +30,13 @@ public class PermissionUtil {
             User user
     ) {
 
-        if (user.getRole() == Role.EMPLOYEE) {
+        if (
+                user.getUserRole() != UserRole.OWNER
+                        &&
+                        user.getUserRole() != UserRole.ADMIN
+                        &&
+                        user.getUserRole() != UserRole.MANAGER
+        ){
 
             throw new RuntimeException(
                     "Permission denied"
@@ -43,16 +49,18 @@ public class PermissionUtil {
     // =========================
 
     public static int level(
-            Role role
+            UserRole userRole
     ) {
 
-        return switch (role) {
+        return switch (userRole) {
 
             case ADMIN -> 3;
 
             case MANAGER -> 2;
 
             case EMPLOYEE -> 1;
+
+            case OWNER -> 0;
         };
     }
 
@@ -67,12 +75,12 @@ public class PermissionUtil {
 
         int current =
                 level(
-                        currentUser.getRole()
+                        currentUser.getUserRole()
                 );
 
         int targetLevel =
                 level(
-                        target.getRole()
+                        target.getUserRole()
                 );
 
         if (current <= targetLevel) {
@@ -95,11 +103,13 @@ public class PermissionUtil {
         }
 
         if (
-                user.getRole() != Role.ADMIN
+                user.getUserRole() != UserRole.OWNER
                         &&
-                        user.getRole() != Role.MANAGER
+                        user.getUserRole() != UserRole.ADMIN
                         &&
-                        user.getRole() != Role.EMPLOYEE
+                        user.getUserRole() != UserRole.MANAGER
+                        &&
+                        user.getUserRole() != UserRole.EMPLOYEE
         ) {
 
             throw new RuntimeException(

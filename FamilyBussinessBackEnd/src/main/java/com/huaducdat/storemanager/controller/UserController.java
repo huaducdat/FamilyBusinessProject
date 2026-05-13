@@ -4,6 +4,7 @@ import com.huaducdat.storemanager.model.entity.User;
 import com.huaducdat.storemanager.model.request.ChangePasswordRequest;
 import com.huaducdat.storemanager.model.request.CreateUserRequest;
 import com.huaducdat.storemanager.model.request.ToggleUserActiveRequest;
+import com.huaducdat.storemanager.model.request.UpdateUserStoreRequest;
 import com.huaducdat.storemanager.model.response.BaseResponse;
 import com.huaducdat.storemanager.service.user.UserService;
 import com.huaducdat.storemanager.service.util.CurrentUserUtil;
@@ -113,6 +114,31 @@ public class UserController {
         return BaseResponse.builder()
                 .success(true)
                 .message("Password changed")
+                .data(null)
+                .build();
+    }
+
+    @PatchMapping("/{id}/store")
+    public BaseResponse<?> transferStore(
+            HttpServletRequest request,
+            @PathVariable Long id,
+            @RequestBody UpdateUserStoreRequest body
+    ) {
+
+        User currentUser =
+                CurrentUserUtil.get(
+                        request
+                );
+
+        userService.transferStore(
+                currentUser,
+                id,
+                body.getStoreId()
+        );
+
+        return BaseResponse.builder()
+                .success(true)
+                .message("User transferred")
                 .data(null)
                 .build();
     }

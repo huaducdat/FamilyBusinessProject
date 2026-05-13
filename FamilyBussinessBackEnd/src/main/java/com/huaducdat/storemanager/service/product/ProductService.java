@@ -105,10 +105,14 @@ public class ProductService {
     // LIST
     // =========================
 
-    public List<ProductResponse> list() {
+    public List<ProductResponse> list(
+            User currentUser
+    ) {
 
-        return productRepository
-                .findAll()
+        return productRepository.findByStoreId(
+                        currentUser.getStore()
+                                .getId()
+                )
                 .stream()
                 .map(this::toResponse)
                 .toList();

@@ -1,0 +1,17 @@
+info:
+  name: getCurrentUser
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:8080/api/users
+  auth:
+    type: bearer
+    token: 8eb74fcf-6798-4dcd-83b0-97f30e750909
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

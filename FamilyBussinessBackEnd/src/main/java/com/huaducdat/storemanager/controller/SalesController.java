@@ -52,13 +52,20 @@ public class SalesController {
     }
 
     @GetMapping("/history")
-    public BaseResponse<?> history() {
-
+    public BaseResponse<?> history(
+            HttpServletRequest request
+    ) {
+        User currentUser =
+                CurrentUserUtil.get(
+                        request
+                );
         return BaseResponse.builder()
                 .success(true)
                 .message("Invoice history")
                 .data(
-                        salesService.history()
+                        salesService.history(
+                                currentUser
+                        )
                 )
                 .build();
     }

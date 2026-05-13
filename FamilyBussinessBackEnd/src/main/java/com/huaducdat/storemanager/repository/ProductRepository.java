@@ -10,4 +10,8 @@ public interface ProductRepository
     List<Product> findByStockQuantityLessThan(
             Integer quantity
     );
+
+    List<Product> findByStoreId(
+            Long storeId
+    );
 }

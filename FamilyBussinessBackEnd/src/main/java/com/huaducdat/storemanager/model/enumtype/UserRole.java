@@ -1,8 +1,9 @@
 package com.huaducdat.storemanager.model.enumtype;
 
-public enum Role {
+public enum UserRole {
 
     ADMIN,
     MANAGER,
-    EMPLOYEE
+    EMPLOYEE,
+    OWNER
 }

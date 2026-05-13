@@ -1,6 +1,7 @@
 info:
   name: user
   type: http
+  seq: 1
 
 http:
   method: POST
@@ -10,7 +11,7 @@ http:
     data: |-
       {
         "username": "admin",
-        "password": "999999"
+        "password": "123456"
       }
   auth: inherit
 

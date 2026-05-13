@@ -1,0 +1,23 @@
+info:
+  name: transferUserToStore
+  type: http
+  seq: 1
+
+http:
+  method: PATCH
+  url: http://localhost:8080/api/users/2/store
+  body:
+    type: json
+    data: |-
+      {
+        "storeId": 2
+      }
+  auth:
+    type: bearer
+    token: 45e769e8-583c-45e3-ba35-67e600d837de
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

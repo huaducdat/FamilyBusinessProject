@@ -1,7 +1,10 @@
 package com.huaducdat.storemanager.controller;
 
+import com.huaducdat.storemanager.model.entity.User;
 import com.huaducdat.storemanager.model.response.BaseResponse;
 import com.huaducdat.storemanager.service.dashboard.DashboardService;
+import com.huaducdat.storemanager.service.util.CurrentUserUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,13 +22,22 @@ public class DashboardController {
     }
 
     @GetMapping
-    public BaseResponse<?> dashboard() {
+    public BaseResponse<?> dashboard(
+            HttpServletRequest request
+    ) {
+
+        User currentUser =
+                CurrentUserUtil.get(
+                        request
+                );
 
         return BaseResponse.builder()
                 .success(true)
                 .message("Dashboard")
                 .data(
-                        dashboardService.dashboard()
+                        dashboardService.dashboard(
+                                currentUser
+                        )
                 )
                 .build();
     }

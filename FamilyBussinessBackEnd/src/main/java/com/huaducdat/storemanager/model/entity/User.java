@@ -1,6 +1,6 @@
 package com.huaducdat.storemanager.model.entity;
 
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +46,7 @@ public class User extends BaseEntity {
     // =========================
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private UserRole userRole;
 
     // =========================
     // STATUS

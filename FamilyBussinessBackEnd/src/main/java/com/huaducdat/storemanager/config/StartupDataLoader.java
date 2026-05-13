@@ -2,7 +2,7 @@ package com.huaducdat.storemanager.config;
 
 import com.huaducdat.storemanager.model.entity.Store;
 import com.huaducdat.storemanager.model.entity.User;
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import com.huaducdat.storemanager.repository.StoreRepository;
 import com.huaducdat.storemanager.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -82,7 +82,7 @@ public class StartupDataLoader
                     "System Admin"
             );
 
-            admin.setRole(Role.ADMIN);
+            admin.setUserRole(UserRole.ADMIN);
 
             userRepository.save(admin);
 

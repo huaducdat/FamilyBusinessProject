@@ -1,0 +1,25 @@
+info:
+  name: create-store
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/stores
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Store Ha Noi",
+        "address": "123 Tran Hung Dao, Ha Noi",
+        "phone": "0988888888"
+      }
+  auth:
+    type: bearer
+    token: 45e769e8-583c-45e3-ba35-67e600d837de
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

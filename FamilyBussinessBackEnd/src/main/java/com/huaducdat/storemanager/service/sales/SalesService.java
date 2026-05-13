@@ -1,11 +1,13 @@
 package com.huaducdat.storemanager.service.sales;
 
 import com.huaducdat.storemanager.model.entity.*;
+import com.huaducdat.storemanager.model.enumtype.AuditAction;
 import com.huaducdat.storemanager.model.request.CreateInvoiceRequest;
 import com.huaducdat.storemanager.model.response.InvoiceDetailResponse;
 import com.huaducdat.storemanager.model.response.InvoiceItemResponse;
 import com.huaducdat.storemanager.model.response.InvoiceResponse;
 import com.huaducdat.storemanager.repository.*;
+import com.huaducdat.storemanager.service.audit.AuditService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +25,12 @@ public class SalesService {
 
     private final CustomerRepository customerRepository;
 
+    private final AuditService auditService;
+
     public SalesService(
             ProductRepository productRepository,
             InvoiceRepository invoiceRepository,
-            InvoiceItemRepository itemRepository, CustomerRepository customerRepository
+            InvoiceItemRepository itemRepository, CustomerRepository customerRepository, AuditService auditService
     ) {
 
         this.productRepository =
@@ -38,6 +42,7 @@ public class SalesService {
         this.itemRepository =
                 itemRepository;
         this.customerRepository = customerRepository;
+        this.auditService = auditService;
     }
 
     // =========================
@@ -185,6 +190,13 @@ public class SalesService {
 
         productRepository.save(product);
 
+        auditService.log(
+                currentUser,
+                AuditAction.CHECKOUT,
+                "Checkout invoice #"
+                        + invoice.getId()
+        );
+
         return InvoiceResponse.builder()
                 .invoiceId(invoice.getId())
                 .totalAmount(total)
@@ -192,9 +204,15 @@ public class SalesService {
                 .build();
     }
 
-    public List<InvoiceResponse> history() {
+    public List<InvoiceResponse> history(
+            User currentUser
+    ) {
         return invoiceRepository
-                .findAllByOrderByCreatedAtDesc()
+                .findByStoreIdOrderByCreatedAtDesc(
+                        currentUser
+                                .getStore()
+                                .getId()
+                )
                 .stream()
                 .map(invoice ->
 

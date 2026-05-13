@@ -1,10 +1,10 @@
 package com.huaducdat.storemanager.service.dashboard;
 
-import com.huaducdat.storemanager.model.entity.Invoice;
+import com.huaducdat.storemanager.model.entity.*;
+import com.huaducdat.storemanager.model.enumtype.CashTransactionType;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import com.huaducdat.storemanager.model.response.DashboardResponse;
-import com.huaducdat.storemanager.repository.AttendanceRepository;
-import com.huaducdat.storemanager.repository.InvoiceRepository;
-import com.huaducdat.storemanager.repository.ProductRepository;
+import com.huaducdat.storemanager.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,30 +16,49 @@ public class DashboardService {
 
     private final InvoiceRepository invoiceRepository;
 
+    private final CustomerRepository customerRepository;
+
     private final ProductRepository productRepository;
+
+    private final CashTransactionRepository cashRepository;
+
+    private final UserRepository userRepository;
 
     private final AttendanceRepository attendanceRepository;
 
     public DashboardService(
             InvoiceRepository invoiceRepository,
+            CustomerRepository customerRepository,
             ProductRepository productRepository,
-            AttendanceRepository attendanceRepository
+            CashTransactionRepository cashRepository, UserRepository userRepository, AttendanceRepository attendanceRepository
     ) {
 
         this.invoiceRepository =
                 invoiceRepository;
 
+        this.customerRepository =
+                customerRepository;
+
         this.productRepository =
                 productRepository;
 
-        this.attendanceRepository =
-                attendanceRepository;
+        this.cashRepository =
+                cashRepository;
+        this.userRepository = userRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
-    public DashboardResponse dashboard() {
+    public DashboardResponse dashboard(
+            User currentUser
+    ) {
+
+        Long storeId =
+                currentUser
+                        .getStore()
+                        .getId();
 
         // =========================
-        // TODAY RANGE
+        // TODAY
         // =========================
 
         LocalDate today =
@@ -56,64 +75,238 @@ public class DashboardService {
                 );
 
         // =========================
-        // TODAY INVOICES
+        // INVOICES
         // =========================
 
         List<Invoice> invoices =
                 invoiceRepository
-                        .findByCreatedAtBetween(
-                                start,
-                                end
+                        .findByStoreIdOrderByCreatedAtDesc(
+                                storeId
                         );
 
-        double revenue =
-                invoices.stream()
-                        .map(Invoice::getTotalAmount)
-                        .reduce(
-                                0.0,
-                                Double::sum
+        double revenue = 0;
+
+        int todayInvoices = 0;
+
+        for (Invoice invoice : invoices) {
+
+            if (
+                    invoice.getCreatedAt()
+                            .isAfter(start)
+            ) {
+
+                revenue +=
+                        invoice.getTotalAmount();
+
+                todayInvoices++;
+            }
+        }
+
+        // =========================
+        // CUSTOMERS
+        // =========================
+
+        List<Customer> customers =
+                customerRepository
+                        .findByStoreId(
+                                storeId
                         );
 
-        int invoiceCount =
-                invoices.size();
+        double totalDebt = 0;
+
+        for (Customer customer : customers) {
+
+            totalDebt +=
+                    customer.getDebtAmount();
+        }
 
         // =========================
-        // LOW STOCK
+        // PRODUCTS
         // =========================
 
-        int lowStock =
+        List<Product> products =
                 productRepository
-                        .findByStockQuantityLessThan(
-                                10
-                        )
-                        .size();
+                        .findByStoreId(
+                                storeId
+                        );
+
+        int lowStock = 0;
+
+        for (Product product : products) {
+
+            if (
+                    product.getStockQuantity()
+                            <= 5
+            ) {
+
+                lowStock++;
+            }
+        }
+
+        // =========================
+// EMPLOYEES
+// =========================
+
+        List<User> employees =
+                userRepository
+                        .findByStoreId(
+                                storeId
+                        );
+
+        int totalEmployees = 0;
+
+        for (User user : employees) {
+
+            if (
+                    user.getUserRole()
+                            != UserRole.OWNER
+                            &&
+                            user.getUserRole()
+                                    != UserRole.ADMIN
+            ) {
+
+                totalEmployees++;
+            }
+        }
 
         // =========================
         // ATTENDANCE
         // =========================
 
-        int attendance =
+        List<Attendance> attendances =
                 attendanceRepository
-                        .findByWorkDate(today)
-                        .size();
+                        .findByCreatedAtBetween(
+                                start,
+                                end
+                        );
+
+        int workingToday = 0;
+
+        int checkedInNow = 0;
+
+        for (Attendance attendance : attendances) {
+
+            if (
+                    attendance.getUser()
+                            .getStore()
+                            .getId()
+                            .equals(storeId)
+            ) {
+
+                workingToday++;
+
+                if (
+                        attendance.getCheckOutTime()
+                                == null
+                ) {
+
+                    checkedInNow++;
+                }
+            }
+        }
+
+        int absentToday =
+                totalEmployees
+                        - workingToday;
+
+        if (absentToday < 0) {
+
+            absentToday = 0;
+        }
+
+
+        // =========================
+        // CASH FLOW
+        // =========================
+
+        List<CashTransaction> cashList =
+                cashRepository
+                        .findByCreatedAtBetween(
+                                start,
+                                end
+                        );
+
+        double income = 0;
+
+        double expense = 0;
+
+        for (CashTransaction tx : cashList) {
+
+            if (
+                    tx.getStore()
+                            .getId()
+                            .equals(storeId)
+            ) {
+
+                if (
+                        tx.getType()
+                                ==
+                                CashTransactionType.INCOME
+                ) {
+
+                    income +=
+                            tx.getAmount();
+                }
+
+                if (
+                        tx.getType()
+                                ==
+                                CashTransactionType.EXPENSE
+                ) {
+
+                    expense +=
+                            tx.getAmount();
+                }
+            }
+        }
 
         return DashboardResponse
                 .builder()
 
-                .todayRevenue(revenue)
-
-                .todayInvoiceCount(
-                        invoiceCount
+                .todayRevenue(
+                        revenue
                 )
 
-                .lowStockCount(
+                .todayInvoices(
+                        todayInvoices
+                )
+
+                .totalCustomers(
+                        customers.size()
+                )
+
+                .lowStockProducts(
                         lowStock
                 )
 
-                .attendanceTodayCount(
-                        attendance
+                .totalDebt(
+                        totalDebt
                 )
 
+                .todayIncome(
+                        income
+                )
+
+                .todayExpense(
+                        expense
+                )
+                .totalEmployees(
+                        totalEmployees
+                )
+
+                .workingToday(
+                        workingToday
+                )
+
+                .absentToday(
+                        absentToday
+                )
+
+                .checkedInNow(
+                        checkedInNow
+                )
                 .build();
     }
+
+
 }

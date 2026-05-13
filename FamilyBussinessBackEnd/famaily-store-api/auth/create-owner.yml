@@ -1,0 +1,26 @@
+info:
+  name: create-owner
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/auth/bootstrap-owner
+  body:
+    type: json
+    data: |-
+      {
+        "username": "owner",
+        "password": "123456",
+        "fullName": "System Owner",
+        "phone": "0999999999"
+      }
+  auth:
+    type: bearer
+    token: fc9cb65d-1852-4fe4-a760-1f8f063718db
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

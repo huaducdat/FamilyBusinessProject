@@ -9,9 +9,23 @@ public class DashboardResponse {
 
     private Double todayRevenue;
 
-    private Integer todayInvoiceCount;
+    private Integer todayInvoices;
 
-    private Integer lowStockCount;
+    private Integer totalCustomers;
 
-    private Integer attendanceTodayCount;
+    private Integer lowStockProducts;
+
+    private Double totalDebt;
+
+    private Double todayIncome;
+
+    private Double todayExpense;
+
+    private Integer totalEmployees;
+
+    private Integer workingToday;
+
+    private Integer absentToday;
+
+    private Integer checkedInNow;
 }

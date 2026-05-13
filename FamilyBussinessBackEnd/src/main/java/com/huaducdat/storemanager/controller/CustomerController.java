@@ -60,13 +60,20 @@ public class CustomerController {
     // =========================
 
     @GetMapping
-    public BaseResponse<?> list() {
-
+    public BaseResponse<?> list(
+            HttpServletRequest request
+    ) {
+        User currentUser =
+                CurrentUserUtil.get(
+                        request
+                );
         return BaseResponse.builder()
                 .success(true)
                 .message("Customer list")
                 .data(
-                        customerService.list()
+                        customerService.list(
+                                currentUser
+                        )
                 )
                 .build();
     }

@@ -2,12 +2,15 @@ package com.huaducdat.storemanager.service.user;
 
 import com.huaducdat.storemanager.model.entity.Store;
 import com.huaducdat.storemanager.model.entity.User;
-import com.huaducdat.storemanager.model.enumtype.Role;
+import com.huaducdat.storemanager.model.enumtype.AuditAction;
+import com.huaducdat.storemanager.model.enumtype.UserRole;
 import com.huaducdat.storemanager.model.request.ChangePasswordRequest;
 import com.huaducdat.storemanager.model.request.CreateUserRequest;
 import com.huaducdat.storemanager.model.request.UpdateUserRequest;
 import com.huaducdat.storemanager.model.response.UserResponse;
+import com.huaducdat.storemanager.repository.StoreRepository;
 import com.huaducdat.storemanager.repository.UserRepository;
+import com.huaducdat.storemanager.service.audit.AuditService;
 import com.huaducdat.storemanager.service.util.PermissionUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,14 +26,20 @@ public class UserService {
 
     private final BCryptPasswordEncoder encoder;
 
+    private final AuditService auditService;
+
+    private final StoreRepository storeRepository;
+
     public UserService(
             UserRepository userRepository,
-            BCryptPasswordEncoder encoder
+            BCryptPasswordEncoder encoder, AuditService auditService, StoreRepository storeRepository
     ) {
 
         this.userRepository = userRepository;
 
         this.encoder = encoder;
+        this.auditService = auditService;
+        this.storeRepository = storeRepository;
     }
 
     // =========================
@@ -72,10 +81,10 @@ public class UserService {
         // MANAGER LIMIT
         // =========================
 
-        if (currentUser.getRole()
-                == Role.MANAGER
-                && request.getRole()
-                != Role.EMPLOYEE) {
+        if (currentUser.getUserRole()
+                == UserRole.MANAGER
+                && request.getUserRole()
+                != UserRole.EMPLOYEE) {
 
             throw new RuntimeException(
                     "Manager can only create employee"
@@ -115,13 +124,23 @@ public class UserService {
                 request.getPhone()
         );
 
-        user.setRole(
-                request.getRole()
+        user.setUserRole(
+                request.getUserRole()
         );
 
         user.setActive(true);
 
-        return userRepository.save(user);
+        User savedUser =
+                userRepository.save(user);
+
+        auditService.log(
+                currentUser,
+                AuditAction.CREATE_USER,
+                "Created user: "
+                        + savedUser.getUsername()
+        );
+
+        return savedUser;
     }
 
     // =========================
@@ -150,14 +169,14 @@ public class UserService {
 
                 .filter(user -> {
 
-                    if (currentUser.getRole()
-                            == Role.ADMIN) {
+                    if (currentUser.getUserRole()
+                            == UserRole.ADMIN) {
 
                         return true;
                     }
 
-                    return user.getRole()
-                            == Role.EMPLOYEE;
+                    return user.getUserRole()
+                            == UserRole.EMPLOYEE;
                 })
 
                 // =========================
@@ -176,8 +195,8 @@ public class UserService {
                                 .phone(
                                         user.getPhone()
                                 )
-                                .role(
-                                        user.getRole()
+                                .userRole(
+                                        user.getUserRole()
                                 )
                                 .active(
                                         user.getActive()
@@ -332,10 +351,10 @@ public class UserService {
         // MANAGER LIMIT
         // =========================
 
-        if (currentUser.getRole()
-                == Role.MANAGER
-                && request.getRole()
-                != Role.EMPLOYEE) {
+        if (currentUser.getUserRole()
+                == UserRole.MANAGER
+                && request.getUserRole()
+                != UserRole.EMPLOYEE) {
 
             throw new RuntimeException(
                     "Manager can only assign EMPLOYEE"
@@ -354,8 +373,8 @@ public class UserService {
                 request.getPhone()
         );
 
-        user.setRole(
-                request.getRole()
+        user.setUserRole(
+                request.getUserRole()
         );
 
         user.setActive(
@@ -363,5 +382,96 @@ public class UserService {
         );
 
         userRepository.save(user);
+    }
+
+    private UserResponse toResponse(
+            User user
+    ) {
+
+        return UserResponse.builder()
+
+                .id(
+                        user.getId()
+                )
+
+                .username(
+                        user.getUsername()
+                )
+
+                .fullName(
+                        user.getFullName()
+                )
+
+                .userRole(
+                        user.getUserRole()
+                )
+
+                .active(
+                        user.getActive()
+                )
+
+                .storeId(
+                        user.getStore()
+                                .getId()
+                )
+
+                .storeName(
+                        user.getStore()
+                                .getName()
+                )
+
+                .build();
+    }
+
+    public void transferStore(
+            User currentUser,
+            Long userId,
+            Long storeId
+    ) {
+
+
+        System.out.println(
+                currentUser.getUsername()
+        );
+
+        System.out.println(
+                currentUser.getUserRole()
+        );
+
+
+        PermissionUtil.requireManager(
+                currentUser
+        );
+
+        User user =
+                userRepository
+                        .findById(userId)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found"
+                                )
+                        );
+
+        Store store =
+                storeRepository
+                        .findById(storeId)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "Store not found"
+                                )
+                        );
+
+        user.setStore(store);
+
+        userRepository.save(user);
+
+        auditService.log(
+                currentUser,
+                AuditAction.UPDATE_USER,
+                "Transferred user "
+                        + user.getUsername()
+                        + " to store "
+                        + store.getName()
+        );
     }
 }

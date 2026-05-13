@@ -1,0 +1,25 @@
+info:
+  name: assign-shift
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/shifts/assign
+  body:
+    type: json
+    data: |-
+      {
+        "userId": 2,
+        "shiftId": 1,
+        "workDate": "2026-05-14"
+      }
+  auth:
+    type: bearer
+    token: 4b2c5627-16e3-4a0c-8c07-b33167ef7958
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
