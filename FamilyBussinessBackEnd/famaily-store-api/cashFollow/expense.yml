@@ -1,0 +1,24 @@
+info:
+  name: expense
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/cash-flow/expense
+  body:
+    type: json
+    data: |-
+      {
+        "amount": 200000,
+        "note": "Buy cleaning tools"
+      }
+  auth:
+    type: bearer
+    token: bc413e64-4bba-4e29-8f35-5575d2362e1f
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
