@@ -1,0 +1,21 @@
+info:
+  name: monthly-report
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:8080/api/payroll/monthly?month=5&year=2026
+  params:
+    - name: month
+      value: "5"
+      type: query
+    - name: year
+      value: "2026"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

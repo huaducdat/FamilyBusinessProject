@@ -1,0 +1,26 @@
+info:
+  name: calculate-payroll
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/api/payroll/calculate?userId=2&month=5&year=2026
+  params:
+    - name: userId
+      value: "2"
+      type: query
+    - name: month
+      value: "5"
+      type: query
+    - name: year
+      value: "2026"
+      type: query
+  auth:
+    type: bearer
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
