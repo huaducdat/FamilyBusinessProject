@@ -1,10 +1,10 @@
 info:
-  name: audit
+  name: expense
   type: http
 
 http:
-  method: GET
-  url: http://localhost:8080/api/audit
+  method: POST
+  url: http://localhost:8080/api/cash-flow/expense
   auth: inherit
 
 settings:

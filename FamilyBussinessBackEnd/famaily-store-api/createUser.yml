@@ -1,0 +1,24 @@
+info:
+  name: createUser
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:8080/api/users
+  body:
+    type: json
+    data: |-
+      {
+        "username": "employee2",
+        "password": "123456",
+        "fullName": "Employee Two",
+        "role": "EMPLOYEE"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+​
