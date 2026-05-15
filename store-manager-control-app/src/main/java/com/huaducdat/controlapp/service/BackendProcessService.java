@@ -2,6 +2,10 @@ package com.huaducdat.controlapp.service;
 
 import com.huaducdat.controlapp.util.ConfigUtil;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class BackendProcessService {
 
     private Process process;
@@ -49,7 +53,107 @@ public class BackendProcessService {
 
         process =
                 builder.start();
+
+        // =========================
+        // WAIT BACKEND READY
+        // =========================
+
+        waitBackendReady();
+
+        // =========================
+        // OPEN CLIENT
+        // =========================
+
+        openClient();
     }
+
+    // =========================
+    // WAIT BACKEND READY
+    // =========================
+
+    private void waitBackendReady()
+            throws Exception {
+
+        while (true) {
+
+            try {
+
+                URL url =
+                        new URL(
+                                "http://localhost:8080/health"
+                        );
+
+                HttpURLConnection conn =
+                        (HttpURLConnection)
+                                url.openConnection();
+
+                conn.setConnectTimeout(1000);
+
+                conn.connect();
+
+                int code =
+                        conn.getResponseCode();
+
+                if (code == 200) {
+
+                    System.out.println(
+                            "Backend Ready"
+                    );
+
+                    break;
+                }
+
+            } catch (Exception ex) {
+
+                System.out.println(
+                        "Waiting Backend..."
+                );
+
+                Thread.sleep(1000);
+            }
+        }
+    }
+
+    // =========================
+    // OPEN CLIENT
+    // =========================
+
+    private void openClient()
+            throws IOException {
+
+        String clientPath =
+                ConfigUtil.get(
+                        "client.jar.path"
+                );
+
+        System.out.println(
+                "Client Path: "
+                        + clientPath
+        );
+
+        ProcessBuilder builder =
+                new ProcessBuilder(
+
+                        "java",
+
+                        "--module-path",
+                        "./javafx-sdk-21/lib",
+
+                        "--add-modules",
+                        "javafx.controls,javafx.fxml",
+
+                        "-jar",
+
+                        clientPath
+                );
+
+        builder.inheritIO();
+
+        builder.redirectErrorStream(true);
+
+        builder.start();
+    }
+
     // =========================
     // STOP
     // =========================

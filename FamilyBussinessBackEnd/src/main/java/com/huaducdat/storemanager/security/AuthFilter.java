@@ -41,7 +41,8 @@ public class AuthFilter
             // PUBLIC API
             // =========================
 
-            if (path.startsWith("/api/auth/login")) {
+            if (path.startsWith("/api/auth/login")  ||
+                    path.equals("/health")) {
 
                 filterChain.doFilter(
                         request,
