@@ -126,9 +126,31 @@ public class BackendProcessService {
                         "client.jar.path"
                 );
 
+        String os =
+                System.getProperty("os.name")
+                        .toLowerCase();
+
+        String javafxPath;
+
+        if (os.contains("win")) {
+
+            javafxPath =
+                    "./javafx-sdk-win/lib";
+
+        } else {
+
+            javafxPath =
+                    "./javafx-sdk-mac/lib";
+        }
+
         System.out.println(
                 "Client Path: "
                         + clientPath
+        );
+
+        System.out.println(
+                "JavaFX Path: "
+                        + javafxPath
         );
 
         ProcessBuilder builder =
@@ -137,7 +159,7 @@ public class BackendProcessService {
                         "java",
 
                         "--module-path",
-                        "./javafx-sdk-21/lib",
+                        javafxPath,
 
                         "--add-modules",
                         "javafx.controls,javafx.fxml",
@@ -147,13 +169,12 @@ public class BackendProcessService {
                         clientPath
                 );
 
-        builder.inheritIO();
-
         builder.redirectErrorStream(true);
+
+        builder.inheritIO();
 
         builder.start();
     }
-
     // =========================
     // STOP
     // =========================
