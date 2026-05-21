@@ -1,117 +1,154 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane
+<StackPane fx:id="rootStack"
+           xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.huaducdat.storemanagerclient.dashboard.view.DashboardController"
+           prefWidth="1280"
+           prefHeight="800"
+           styleClass="app-background">
 
-        xmlns="http://javafx.com/javafx"
+    <StackPane fx:id="backgroundLayer"
+               mouseTransparent="true"
+               styleClass="background-layer">
 
-        xmlns:fx="http://javafx.com/fxml"
+        <ImageView fx:id="backgroundImageView"
+                   mouseTransparent="true"
+                   pickOnBounds="true"
+                   preserveRatio="false"/>
 
-        fx:controller="
-        com.huaducdat.storemanagerclient.controller.DashboardController
-        "
+        <MediaView fx:id="backgroundVideoView"
+                   mouseTransparent="true"
+                   preserveRatio="true"/>
 
-        prefWidth="1280"
+        <Region mouseTransparent="true"
+                styleClass="atmosphere-overlay"/>
 
-        prefHeight="800"
+    </StackPane>
 
-        style="
-            -fx-background-color: #f5f5f7;
-        ">
+    <StackPane fx:id="foregroundLayer"
+               styleClass="foreground-layer">
 
-    <!-- ========================= -->
-    <!-- TOP -->
-    <!-- ========================= -->
+        <BorderPane fx:id="dashboardRoot"
+                    styleClass="glass-foreground dashboard-shell">
 
-    <top>
+        <top>
+            <StackPane fx:id="topbarPanel"
+                       styleClass="dashboard-topbar">
+                <HBox alignment="CENTER_LEFT"
+                      spacing="32"
+                      styleClass="dashboard-topbar-content">
 
-        <HBox
+                    <VBox spacing="4"
+                          fillWidth="false">
+                        <Label text="Store Manager Dashboard"
+                               styleClass="title-lg text-primary"/>
+                        <Label text="Cold structure, warm action"
+                               styleClass="subtitle text-secondary"/>
+                    </VBox>
 
-                alignment="CENTER_LEFT"
+                    <Label text="Live"
+                           styleClass="signal-warm"/>
 
-                spacing="16"
+                    <Region HBox.hgrow="ALWAYS"/>
 
-                style="
-                    -fx-background-color: white;
-                    -fx-padding: 16;
-                    -fx-border-color: #e5e5e5;
-                    -fx-border-width: 0 0 1 0;
-                ">
+                    <HBox spacing="12"
+                          alignment="CENTER"
+                          fx:id="modeCapsule"
+                          styleClass="mode-capsule">
 
-            <Label
+                        <StackPane fx:id="videoModePill"
+                                   styleClass="mode-pill">
+                            <Label text="Video"
+                                   styleClass="mode-pill-label"/>
+                        </StackPane>
 
-                    text="Store Manager Dashboard"
+                        <StackPane fx:id="imageModePill"
+                                   styleClass="mode-pill">
+                            <Label text="Image"
+                                   styleClass="mode-pill-label"/>
+                        </StackPane>
 
-                    style="
-                        -fx-font-size: 22;
-                        -fx-font-weight: bold;
-                    "/>
+                    </HBox>
 
-        </HBox>
+                    <Button text="Logout"
+                            onAction="#onLogout"
+                            styleClass="glass-button secondary-button"/>
 
-    </top>
+                </HBox>
+            </StackPane>
+            <BorderPane.margin>
+                <Insets top="32" right="32" bottom="16" left="32"/>
+            </BorderPane.margin>
+        </top>
 
-    <!-- ========================= -->
-    <!-- LEFT -->
-    <!-- ========================= -->
+        <left>
+            <StackPane fx:id="sidebarPanel"
+                       styleClass="dashboard-sidebar">
+                <VBox spacing="16"
+                      prefWidth="292"
+                      styleClass="dashboard-sidebar-content">
 
-    <left>
+                    <Label text="Navigation"
+                           styleClass="subtitle text-secondary"/>
 
-        <VBox
+                    <Button text="Dashboard"
+                            styleClass="glass-button glass-button-active"/>
+                    <Button text="Products"
+                            styleClass="glass-button"/>
+                    <Button text="Sales"
+                            styleClass="glass-button"/>
+                    <Button text="Customers"
+                            styleClass="glass-button"/>
+                    <Button text="Reports"
+                            styleClass="glass-button"/>
 
-                spacing="8"
+                </VBox>
+            </StackPane>
+            <BorderPane.margin>
+                <Insets top="0" right="16" bottom="32" left="32"/>
+            </BorderPane.margin>
+        </left>
 
-                prefWidth="220"
+        <center>
+            <StackPane fx:id="contentPanel"
+                       styleClass="dashboard-content">
+                <StackPane fx:id="contentPane"
+                           styleClass="dashboard-content-content">
 
-                style="
-                    -fx-background-color: white;
-                    -fx-padding: 16;
-                    -fx-border-color: #e5e5e5;
-                    -fx-border-width: 0 1 0 0;
-                ">
+                    <VBox spacing="20"
+                          maxWidth="520">
 
-            <Button text="Dashboard"/>
+                        <Label text="Command center"
+                               styleClass="title-md text-primary"/>
+                        <Label text="This layout is intentionally calm: cold surfaces, precise spacing, and warm accents reserved for action states and critical data."
+                               wrapText="true"
+                               styleClass="subtitle text-secondary"/>
+                        <Label text="Dashboard content placeholder"
+                               styleClass="signal-warm"/>
 
-            <Button text="Products"/>
+                    </VBox>
 
-            <Button text="Sales"/>
+                </StackPane>
+            </StackPane>
+            <BorderPane.margin>
+                <Insets top="0" right="32" bottom="32" left="16"/>
+            </BorderPane.margin>
+        </center>
 
-            <Button text="Customers"/>
+        </BorderPane>
 
-            <Button text="Reports"/>
+    </StackPane>
 
-        </VBox>
-
-    </left>
-
-    <!-- ========================= -->
-    <!-- CENTER -->
-    <!-- ========================= -->
-
-    <center>
-
-        <StackPane
-
-                fx:id="contentPane"
-
-                style="
-                    -fx-padding: 24;
-                ">
-
-            <Label
-
-                    text="Dashboard Content"
-
-                    style="
-                        -fx-font-size: 24;
-                        -fx-text-fill: #707070;
-                    "/>
-
-        </StackPane>
-
-    </center>
-
-</BorderPane>
+</StackPane>

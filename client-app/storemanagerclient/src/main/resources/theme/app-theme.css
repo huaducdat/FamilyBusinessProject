@@ -1,0 +1,494 @@
+/*
+ * VisionOS-like cinematic glass design system.
+ * Keep visual richness in atmospheric backgrounds and keep UI objects quiet.
+ * See docs/ui-law.md before adding new view styles.
+ */
+
+.app-background {
+    -fx-background-color:
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 50% 18%,
+            radius 96%,
+            rgba(255, 255, 255, 0.20) 0%,
+            rgba(255, 255, 255, 0.00) 42%
+        ),
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 18% 12%,
+            radius 82%,
+            rgba(91, 167, 255, 0.10) 0%,
+            rgba(91, 167, 255, 0.00) 60%
+        ),
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 82% 18%,
+            radius 72%,
+            rgba(255, 138, 104, 0.04) 0%,
+            rgba(255, 138, 104, 0.00) 54%
+        ),
+        linear-gradient(
+            to bottom right,
+            #d3e2f7 0%,
+            #e3edfb 42%,
+            #f1f6fc 74%,
+            #fbfdff 100%
+        );
+}
+
+.scene-frame {
+    -fx-padding: 32;
+}
+
+.atmosphere-overlay {
+    -fx-background-color:
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 50% 48%,
+            radius 54%,
+            rgba(255, 255, 255, 0.00) 0%,
+            rgba(255, 255, 255, 0.00) 46%,
+            rgba(10, 18, 28, 0.22) 74%,
+            rgba(10, 18, 28, 0.34) 100%
+        ),
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 16% 12%,
+            radius 86%,
+            rgba(91, 167, 255, 0.10) 0%,
+            rgba(91, 167, 255, 0.00) 62%
+        ),
+        radial-gradient(
+            focus-angle 0deg,
+            focus-distance 0%,
+            center 84% 16%,
+            radius 84%,
+            rgba(255, 138, 104, 0.04) 0%,
+            rgba(255, 138, 104, 0.00) 58%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(10, 18, 28, 0.30) 0%,
+            rgba(10, 18, 28, 0.18) 34%,
+            rgba(10, 18, 28, 0.16) 66%,
+            rgba(10, 18, 28, 0.34) 100%
+        );
+}
+
+.glass-foreground {
+    -fx-background-color: transparent;
+}
+
+.background-layer,
+.foreground-layer {
+    -fx-background-color: transparent;
+}
+
+.glass-panel,
+.surface-panel {
+    -fx-background-color: rgba(255,255,255,0.60);
+    -fx-background-radius: 32;
+    -fx-border-radius: 32;
+    -fx-border-color: rgba(255,255,255,0.30);
+    -fx-border-width: 1;
+    -fx-padding: 28;
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(0,0,0,0.18),
+            24,
+            0.12,
+            0,
+            8
+        );
+}
+
+.glass-sidebar {
+    -fx-background-color: rgba(255,255,255,0.68);
+    -fx-background-radius: 36;
+    -fx-border-radius: 36;
+    -fx-border-color: rgba(255,255,255,0.34);
+    -fx-border-width: 1;
+    -fx-padding: 32;
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(0,0,0,0.20),
+            28,
+            0.14,
+            0,
+            10
+        );
+}
+
+.glass-card,
+.surface-card,
+.content-card {
+    -fx-background-color: rgba(255,255,255,0.58);
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-border-color: rgba(255,255,255,0.28);
+    -fx-border-width: 1;
+    -fx-padding: 52;
+    -fx-effect:
+        dropshadow(
+            gaussian,
+            rgba(0,0,0,0.18),
+            30,
+            0.14,
+            0,
+            12
+        );
+}
+
+.dashboard-topbar {
+    -fx-background-color: rgba(255,255,255,0.52);
+    -fx-background-radius: 34;
+    -fx-border-radius: 34;
+    -fx-border-color: rgba(255,255,255,0.36);
+    -fx-border-width: 1;
+    -fx-padding: 28 32 28 32;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.18), 34, 0.22, 0, 12);
+}
+
+.dashboard-sidebar {
+    -fx-background-color: rgba(255,255,255,0.58);
+    -fx-background-radius: 36;
+    -fx-border-radius: 36;
+    -fx-border-color: rgba(255,255,255,0.40);
+    -fx-border-width: 1;
+    -fx-padding: 32;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.20), 40, 0.24, 0, 14);
+}
+
+.dashboard-content {
+    -fx-background-color: rgba(255,255,255,0.54);
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-border-color: rgba(255,255,255,0.36);
+    -fx-border-width: 1;
+    -fx-padding: 52;
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.20), 46, 0.24, 0, 18);
+}
+
+.login-shell {
+    -fx-background-color: rgba(15, 22, 34, 0.72);
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-border-color: rgba(255, 255, 255, 0.24);
+    -fx-padding: 78 60 68 60;
+    -fx-effect: dropshadow(gaussian, rgba(6, 12, 22, 0.42), 28, 0.10, 0, 10);
+}
+
+.login-hero {
+    -fx-padding: 0 0 8 0;
+}
+
+.login-form {
+    -fx-padding: 16 0 0 0;
+}
+
+.login-title {
+    -fx-font-size: 54px;
+    -fx-font-weight: 800;
+    -fx-text-fill: rgba(255, 255, 255, 0.96);
+    -fx-effect: dropshadow(gaussian, rgba(6, 12, 22, 0.38), 16, 0.12, 0, 2);
+}
+
+.login-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: rgba(255, 255, 255, 0.78);
+    -fx-opacity: 1.0;
+}
+
+.login-status {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8a3b2a;
+    -fx-opacity: 0.95;
+}
+
+.mode-capsule {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.48) 0%,
+            rgba(246, 250, 255, 0.30) 100%
+        );
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(255, 255, 255, 0.18);
+    -fx-border-radius: 999;
+    -fx-padding: 10;
+    -fx-effect:
+        dropshadow(gaussian, rgba(19, 36, 61, 0.12), 18, 0.08, 0, 4),
+        innershadow(gaussian, rgba(255, 255, 255, 0.18), 10, 0.06, 0, 0);
+}
+
+.mode-pill {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.30) 0%,
+            rgba(255, 255, 255, 0.18) 100%
+        );
+    -fx-background-radius: 999;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 10 18 10 18;
+    -fx-min-height: 36;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(19, 36, 61, 0.08), 8, 0.06, 0, 2);
+}
+
+.mode-pill:hover {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.36) 0%,
+            rgba(255, 255, 255, 0.22) 100%
+    );
+}
+
+.mode-pill-active {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.98) 0%,
+            rgba(243, 248, 255, 0.92) 100%
+        );
+    -fx-effect:
+        dropshadow(gaussian, rgba(255, 255, 255, 0.20), 10, 0.08, 0, 0),
+        dropshadow(gaussian, rgba(91, 167, 255, 0.08), 16, 0.08, 0, 1);
+}
+
+.mode-pill-idle {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.30) 0%,
+            rgba(255, 255, 255, 0.18) 100%
+        );
+}
+
+.mode-pill-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+    -fx-alignment: center;
+}
+
+.mode-pill-active .mode-pill-label {
+    -fx-text-fill: #122033;
+}
+
+.mode-pill-idle .mode-pill-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+.dashboard-topbar .mode-capsule {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.50) 0%,
+            rgba(245, 248, 255, 0.34) 100%
+        );
+}
+
+.dashboard-topbar .mode-pill,
+.dashboard-topbar .mode-pill:hover {
+    -fx-effect: dropshadow(gaussian, rgba(19, 36, 61, 0.10), 8, 0.06, 0, 2);
+}
+
+.dashboard-topbar .mode-pill .mode-pill-label {
+    -fx-text-fill: #223041;
+}
+
+.dashboard-topbar .mode-pill-active .mode-pill-label {
+    -fx-text-fill: #122033;
+}
+
+.login-card {
+    -fx-padding: 80;
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-effect: dropshadow(gaussian, rgba(19, 36, 61, 0.08), 24, 0.08, 0, 8);
+}
+
+.button,
+.glass-button {
+    -fx-background-insets: 0;
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 20 14 20;
+    -fx-cursor: hand;
+    -fx-effect: null;
+}
+
+.button,
+.glass-button {
+    -fx-background-color: rgba(255, 255, 255, 0.96);
+    -fx-border-color: rgba(255, 255, 255, 0.22);
+    -fx-text-fill: #223041;
+}
+
+.button:hover,
+.glass-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.99);
+}
+
+.glass-button-active,
+.sidebar-button-active,
+.primary-button {
+    -fx-background-color: rgba(79, 140, 255, 0.86);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255, 255, 255, 0.16);
+}
+
+.glass-button-active:hover,
+.sidebar-button-active:hover,
+.primary-button:hover {
+    -fx-background-color: rgba(79, 140, 255, 0.92);
+}
+
+.glass-button-active:focused,
+.sidebar-button-active:focused {
+    -fx-background-color: rgba(79, 140, 255, 0.96);
+}
+
+.field {
+    -fx-background-color: rgba(255, 255, 255, 0.96);
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-border-color: rgba(216, 226, 240, 0.44);
+    -fx-padding: 16 20 16 20;
+    -fx-font-size: 14px;
+    -fx-text-fill: #111111;
+}
+
+.field:focused {
+    -fx-border-color: rgba(91, 167, 255, 0.34);
+    -fx-effect: dropshadow(gaussian, rgba(91, 167, 255, 0.10), 8, 0.08, 0, 0);
+}
+
+.primary-button:pressed,
+.glass-button:pressed,
+.secondary-button:pressed {
+    -fx-opacity: 0.94;
+}
+
+.secondary-button {
+    -fx-background-color: rgba(255, 255, 255, 0.96);
+    -fx-text-fill: #314355;
+    -fx-border-color: rgba(220, 230, 242, 0.18);
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-effect: dropshadow(gaussian, rgba(19, 36, 61, 0.05), 12, 0.06, 0, 3);
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.90);
+    -fx-border-color: rgba(91, 167, 255, 0.10);
+}
+
+.progress-ring {
+    -fx-progress-color: #5ba7ff;
+}
+
+.text-primary,
+.title-xl,
+.title-lg,
+.title-md {
+    -fx-text-fill: #111111;
+}
+
+.title-xl {
+    -fx-font-size: 40px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 18, 0.12, 0, 2);
+}
+
+.title-lg {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #181818;
+}
+
+.title-md {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+}
+
+.text-secondary,
+.subtitle,
+.muted-text {
+    -fx-text-fill: #5b6470;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #5b6470;
+}
+
+.field {
+    -fx-background-color:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.94) 0%,
+            rgba(247, 250, 255, 0.86) 100%
+        );
+    -fx-border-color: rgba(216, 226, 240, 0.58);
+    -fx-text-fill: #111111;
+}
+
+.field .text,
+.field .prompt-text {
+    -fx-fill: #111111;
+}
+
+.field .prompt-text {
+    -fx-opacity: 0.72;
+}
+
+.signal-warm,
+.accent-pill,
+.status-error {
+    -fx-background-color: rgba(255, 138, 104, 0.08);
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-text-fill: #f58b72;
+}
+
+.signal-warm,
+.accent-pill {
+    -fx-padding: 7 14 7 14;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-error {
+    -fx-text-fill: rgba(255, 255, 255, 0.86);
+}
+
+.dashboard-shell .title-lg,
+.dashboard-shell .title-md,
+.dashboard-shell .text-primary {
+    -fx-text-fill: #111111;
+}
+
+.dashboard-shell .subtitle,
+.dashboard-shell .text-secondary,
+.dashboard-shell .muted-text {
+    -fx-text-fill: #5b6470;
+}

@@ -34,7 +34,11 @@
 
         <javafx.version>21</javafx.version>
 
-        <lombok.version>1.18.34</lombok.version>
+        <javafx.sdk.lib>
+            /Users/ducdathua/Desktop/TestApp/FamilyMiniStore/javafx-sdk-mac/lib
+        </javafx.sdk.lib>
+
+        <lombok.version>1.18.40</lombok.version>
 
         <jackson.version>2.17.1</jackson.version>
 
@@ -62,6 +66,14 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+            <scope>system</scope>
+            <systemPath>${javafx.sdk.lib}/javafx.media.jar</systemPath>
         </dependency>
 
         <!-- JACKSON -->
@@ -140,6 +152,11 @@
                 <configuration>
 
                     <mainClass>${main.class}</mainClass>
+
+                    <options>
+                        <option>--add-modules=javafx.controls,javafx.fxml,javafx.media</option>
+                        <option>-Djava.library.path=${javafx.sdk.lib}</option>
+                    </options>
 
                 </configuration>
 
